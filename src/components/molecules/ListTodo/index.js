@@ -1,14 +1,22 @@
 import React from "react"
-import { Box } from "native-base"
+import { HStack } from "native-base"
+import { StyleSheet } from "react-native"
 
-import { TextTodo } from "../../atoms"
+import { TextTodo, StatusTodo } from "../../atoms"
 
 const ListTodo = () => {
     return (
-        <Box>
+        <HStack style={styles.container}>
+            <StatusTodo />
             <TextTodo title="halo" subtitle="oke" />
-        </Box>
+        </HStack>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginLeft: 15
+    }
+})
 
 export default ListTodo
