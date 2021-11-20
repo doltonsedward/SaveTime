@@ -1,12 +1,12 @@
 import React from "react"
-import { Text } from "native-base"
+import { Text, Heading, Box } from "native-base"
 
 const TextTodo = ({ title, subtitle }) => {
     return (
-        <>
-            <Text>{title}</Text>
+        <Box>
+            <Heading style={{fontSize: 20}}>{title}</Heading>
             <Text>{subtitle}</Text>
-        </>
+        </Box>
     )
 }
 
