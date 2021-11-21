@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet } from 'react-native'
-import { Alert, Box, FlatList, Text, HStack } from "native-base"
+import { Alert, Box, FlatList, Text, HStack, Badge, VStack } from "native-base"
 import { Entypo } from '@expo/vector-icons'
 
 // import custom component
@@ -39,7 +39,22 @@ const WrapperListTodo = () => {
                 </HStack>
             </Box>
             <Box>
-                <Text>Today {dataTodo.length}</Text>
+                <VStack>
+                    <Text>
+                        Today 
+                    </Text>
+                    <Badge // bg="red.400"
+                        colorScheme="danger"
+                        rounded="999px"
+                        zIndex={1}
+                        variant="solid"
+                        _text={{
+                        fontSize: 12,
+                        }}
+                    >
+                        {dataTodo.length}
+                    </Badge>
+                </VStack>
                 <Box style={styles.wrapperListTodo}>
                     <FlatList 
                         data={dataTodo}
