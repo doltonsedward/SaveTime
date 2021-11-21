@@ -1,9 +1,9 @@
 import React from "react"
-import { Box } from "native-base"
+import { Pressable } from "native-base"
 import { StyleSheet } from "react-native"
 
-const StatusTodo = () => {
-    return <Box style={styles.container}></Box>
+const StatusTodo = ({ ...rest }) => {
+    return <Pressable style={styles.container} {...rest}></Pressable>
 }
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         height: 20,
         borderColor: 'gray',
         borderWidth: 1,
-        borderRadius: 50
+        borderRadius: 50,
     }
 })
 
