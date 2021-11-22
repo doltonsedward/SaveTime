@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import { HStack } from "native-base"
 import { StyleSheet } from "react-native"
 
 import { TextTodo, StatusTodo } from "../../atoms"
 
 const ListTodo = ({ title, subtitle, statusOnPress }) => {
-    if (!title || !subtitle) {
+    const [status, setStatus] = useState('')
+
+    if (!title) {
         return (
             <HStack style={styles.container}>
             </HStack>
@@ -14,8 +16,17 @@ const ListTodo = ({ title, subtitle, statusOnPress }) => {
 
     return (
         <HStack style={styles.container}>
-            <StatusTodo onPress={statusOnPress} />
-            <TextTodo title={title} subtitle={subtitle} />
+            <StatusTodo 
+                onPress={()=> {
+                    setStatus('done')
+                    statusOnPress()
+                }} 
+                status={status} 
+            />
+            <TextTodo title={title} subtitle={subtitle} onPress={()=> {
+                setStatus('done')
+                statusOnPress()
+            }} />
         </HStack>
     )
 }
