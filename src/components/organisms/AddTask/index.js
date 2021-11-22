@@ -2,11 +2,11 @@ import React from "react"
 import { Box, Text, Button } from "native-base"
 import { StyleSheet } from "react-native"
 
-const AddTask = () => {
+const AddTask = ({ onPress }) => {
     return (
         <Box style={styles.container}>
             <Text>TASK</Text>
-            <Button bg="blue.400" style={styles.addTaskButton}>+</Button>
+            <Button bg="blue.400" style={styles.addTaskButton} onPress={onPress}>+</Button>
         </Box>
     )
 }
