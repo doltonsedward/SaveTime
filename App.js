@@ -4,8 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 // Import NativeBase
 import { extendTheme, NativeBaseProvider, Box } from 'native-base'
-import TextTodo from './src/components/atoms/TextTodo';
-import Home from './src/screens/Home';
+
+import Container from './Container';
 
 export default function App() {
   const theme = extendTheme({
@@ -41,7 +41,7 @@ export default function App() {
     <NativeBaseProvider theme={theme}>
       <StatusBar style="auto" />
       <Box style={styles.container}>
-        <Home />
+        <Container />
       </Box>
     </NativeBaseProvider>
   )
