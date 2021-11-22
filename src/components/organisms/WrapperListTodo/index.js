@@ -1,73 +1,104 @@
 import React from "react"
-import { StyleSheet } from 'react-native'
-import { Alert, Box, FlatList, Text, HStack, Badge, VStack } from "native-base"
-import { Entypo } from '@expo/vector-icons'
+import { ImageBackground, StyleSheet } from 'react-native'
+import { Alert, Box, FlatList, Text, Badge, Image } from "native-base"
 
 // import custom component
 import { ListTodo } from "../../molecules"
 import { API } from "../../../config/api"
-import axios from "axios"
 
-const WrapperListTodo = () => {
+const WrapperListTodo = ({ newTodo }) => {
     const [dataTodo, setDataTodo] = React.useState([])
     const [alertOpen, setAlertOpen] = React.useState(false)
 
     React.useEffect(() => {
         getDataTodo()
-    }, [])
+    }, [ newTodo ])
+
+    const deleteDataTodo = async (idTodo) => {
+        try {
+            await API.delete('/todo/' + idTodo)
+            getDataTodo()
+        } catch (error) {
+            throw error
+        }
+    }
 
     const _renderItem = ({ item }) => {
         return (
-            <ListTodo title={item.name} subtitle={item.email} statusOnPress={()=> setAlertOpen(true)} />
+            <ListTodo 
+                title={item.name} 
+                subtitle={item.description} 
+                statusOnPress={()=> deleteDataTodo(item.id)}
+            />
         )
     }
 
     const getDataTodo = async () => {
         try {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/users')
-            setDataTodo(response.data)
+            const response = await API.get('/todos')
+            setDataTodo(response.data.todos)
         } catch (error) {
-            console.log(error)
+            throw error
         }
     }
 
+    React.useEffect(()=> {
+        getDataTodo()
+    }, [])
+
     return (
         <Box style={styles.container}>
-            <Box style={styles.boxTodo}>
-                <HStack style={styles.innerBoxTodo} shadow={8}>
-                    <Entypo name="add-to-list" size={24} color="white" />
-                </HStack>
-            </Box>
+            {/* <ImageBackground source={require("../../../assets/woolly-done.png")} resizeMode="cover">
+                <Text>Inside</Text>
+            </ImageBackground> */}
             <Box>
-                <VStack>
-                    <Text>
-                        Today 
-                    </Text>
-                    <Badge // bg="red.400"
-                        colorScheme="danger"
-                        rounded="999px"
-                        zIndex={1}
-                        variant="solid"
-                        _text={{
-                        fontSize: 12,
-                        }}
-                    >
-                        {dataTodo.length}
-                    </Badge>
-                </VStack>
+                <Text>
+                    Today 
+                    {
+                        dataTodo.length ?
+                        <Badge // bg="red.400"
+                            colorScheme="danger"
+                            rounded="999px"
+                            mb={-4}
+                            mr={-4}
+                            zIndex={1}
+                            variant="solid"
+                            alignSelf="flex-end"
+                            _text={{
+                            fontSize: 12,
+                            }}
+                        >
+                            {dataTodo.length}
+                        </Badge>
+                        : null
+                    }
+                </Text>
                 <Box style={styles.wrapperListTodo}>
-                    <FlatList 
-                        data={dataTodo}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={_renderItem}
-                        scrollEnabled={true}
-                    />
+                    {
+                        dataTodo.length ?
+                        <FlatList 
+                            data={dataTodo}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={_renderItem}
+                            scrollEnabled={true}
+                        />
+                        :
+                        <Box style={styles.todoEmptySession}>
+                            <Image 
+                                source={require('../../../assets/woolly-panda.png')}
+                                alt="rest time"
+                                size="xl"
+                                style={{ marginBottom: 20 }}
+                            />
+                            <Text>You have no activity today</Text>
+                            <Text>Have a nice day</Text>
+                        </Box>
+                    }
                 </Box>
                 
             </Box>
             <Box>
                 <Text>Yesterday</Text>
-                {/* <ListTodo /> */}
             </Box>
             {
                 alertOpen ? 
@@ -104,6 +135,10 @@ const styles = StyleSheet.create({
     },
     wrapperListTodo: {
         height: 200
+    },
+    todoEmptySession: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
