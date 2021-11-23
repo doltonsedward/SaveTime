@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native"
 
 import { TextTodo, StatusTodo } from "../../atoms"
 
-const ListTodo = ({ title, subtitle, statusOnPress }) => {
+const ListTodo = ({ title, subtitle, statusOnPress, onEdit }) => {
     const [status, setStatus] = useState('')
 
     if (!title) {
@@ -23,10 +23,7 @@ const ListTodo = ({ title, subtitle, statusOnPress }) => {
                 }} 
                 status={status} 
             />
-            <TextTodo title={title} subtitle={subtitle} onPress={()=> {
-                setStatus('done')
-                statusOnPress()
-            }} />
+            <TextTodo title={title} subtitle={subtitle} onPress={onEdit} />
         </HStack>
     )
 }

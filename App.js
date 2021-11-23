@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
 
 // Import NativeBase
 import { extendTheme, NativeBaseProvider, Box } from 'native-base'
@@ -8,6 +9,10 @@ import { extendTheme, NativeBaseProvider, Box } from 'native-base'
 import Container from './Container';
 
 export default function App() {
+  const [fontLoaded] = useFonts({
+    Poppins: require('./src/assets/fonts/Poppins-Medium.ttf')
+  })
+  
   const theme = extendTheme({
     colors: {
       primary: {
@@ -34,8 +39,23 @@ export default function App() {
         800: '#752F2F',
         900: '#582323',
       },
+    },
+    fontConfig: {
+      Poppins: {
+        400: {
+          normal: 'Poppins'
+        }
+      },
+    },
+
+    fonts: {
+      body: 'Poppins',
     }
   })
+
+  if (!fontLoaded) {
+    return null
+  }
 
   return (
     <NativeBaseProvider theme={theme}>
@@ -52,4 +72,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-});
+})

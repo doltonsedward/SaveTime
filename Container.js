@@ -27,6 +27,17 @@ export default function Container() {
                 <Stack.Screen 
                     name="Todos"
                     component={Todos}
+                    options={{
+                        title: "Todos",
+                        headerStyle: {
+                            backgroundColor: "#DC932E"
+                        },
+                        headerTintColor: "white",
+                        headerTitleStyle: {
+                            fontFamily: "Poppins",
+                            fontSize: 16
+                        }
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

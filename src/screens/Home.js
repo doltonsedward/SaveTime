@@ -12,11 +12,11 @@ const Home = ({ navigation }) => {
                 style={{ marginBottom: 25 }}
             />
 
-            <Text fontSize="xl" style={{ marginBottom: 25 }}>Safe your time now</Text>
+            <Text fontSize="lg" fontFamily="body" style={{ marginBottom: 25 }}>Safe your time now</Text>
             <Pressable color="white">
                 {({ isPressed }) => {
                     return (
-                        <Button style={{width: 150, borderRadius: 25}} bg={isPressed ? "primary.200" : "primary.500"} shadow={4} onPress={()=> navigation.navigate("Todos")}>START</Button>
+                        <Button fontFamily="body" style={{width: 150, borderRadius: 25}} bg={isPressed ? "primary.200" : "primary.500"} onPress={()=> navigation.navigate("Todos")}>START</Button>
                     )
                 }}
             </Pressable>

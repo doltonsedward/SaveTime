@@ -9,9 +9,9 @@ const StatusTodo = ({ ...rest }) => {
         <Pressable style={styles.container} {...rest}>
             {
                 rest.status === 'done' ?
-                <AntDesign name="checkcircle" size={20} color="green" />
+                <AntDesign name="checkcircle" size={24} color="#116530" />
                 :
-                <Entypo name="circle" size={20} color="gray"  />
+                <Entypo name="circle" size={24} color="gray"  />
             }
         </Pressable>
     )

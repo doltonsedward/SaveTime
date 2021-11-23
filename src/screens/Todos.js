@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Button, FormControl, Input, Modal } from "native-base"
+import { Box, Button, FormControl, Input, Modal, StatusBar } from "native-base"
 
 // import custom component
 import { AddTask, WrapperListTodo } from "../components/organisms"
@@ -44,6 +44,17 @@ const Todos = () => {
     
     return (
         <Box style={{flex: 1}}>
+            <WrapperListTodo newTodo={todos} />
+            <AddTask onPress={()=> {
+                setForm(prev => ({
+                    ...prev,
+                    name: "",
+                    description: ""
+                }))
+                setIsOpen(true)
+            }} 
+            />
+
             <Modal isOpen={isOpen} onClose={()=> setIsOpen(false)}>
                 <Modal.Content>
                     <Modal.CloseButton />
@@ -79,8 +90,6 @@ const Todos = () => {
                     </Modal.Footer>
                 </Modal.Content>
             </Modal>
-            <WrapperListTodo newTodo={todos} />
-            <AddTask onPress={()=> setIsOpen(true)} />
         </Box>
     )
 }
